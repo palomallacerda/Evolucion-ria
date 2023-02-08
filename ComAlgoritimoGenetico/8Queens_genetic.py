@@ -9,7 +9,7 @@ def view(li, index):
         x = li[i] - 1
         for j in range(8):
             if j == x:
-                print('[Q]', end='')
+                print('[R]', end='')
             else:
                 print('[ ]', end='')
         print()
