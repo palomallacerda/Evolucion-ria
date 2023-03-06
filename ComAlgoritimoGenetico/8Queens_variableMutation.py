@@ -1,7 +1,8 @@
-# Problema das 8 rainhas com a taxa de mutação e cruzamento fixos
+# Problema das 8 rainhas com a taxa de mutação e cruzamento variádos
+
+#Ainda está apresentando bugs........
 
 import random
-import matplotlib.pyplot as plt
 
 def view(li, index):
     print()
@@ -61,7 +62,7 @@ def changeChilds(co):
     child1 = build_child(father, mother, crossover)
     child2 = build_child(mother, father, crossover)
 
-def changeChromosome(li):
+def changeChromosome(li, mutation_rate):
     global crossover, father, mother
     newchange = -1
     while newchange != 0:
@@ -83,12 +84,14 @@ def changeChromosome(li):
                         li[j] = random.randint(1, 8)
         else:
             li[index] = newchange
+    for i in range(len(li)):
+        if random.random() <= mutation_rate:
+            li[i] = random.randint(1, 8)
 
 if __name__ == "__main__":
     print("Select the number of queens: ")
     numberOfSolutions = int(8)
     solutions = []
-    crossover = 4
     max_fitness = []
     while len(solutions) < numberOfSolutions:
         father = []
@@ -103,8 +106,8 @@ if __name__ == "__main__":
 
         while fitnessFather != 28 and fitnessMother != 28:
             changeChilds(crossover)
-            changeChromosome(child1)
-            changeChromosome(child2)
+            changeChromosome(child1, 10) #bug
+            changeChromosome(child2, 0)
             fitnessFather = getFitness(child1)
             fitnessMother = getFitness(child2)
             father = child1
@@ -124,8 +127,8 @@ if __name__ == "__main__":
         view(solutions[i], i)
     print("#######################################################")
 
-    plt.plot(range(len(max_fitness)), max_fitness)
-    plt.title("Maior fitness por geração")
-    plt.ylabel("Fitness")
-    plt.xlabel("Geração")
-    plt.show()
+    # plt.plot(range(len(max_fitness)), max_fitness)
+    # plt.title("Maior fitness por geração")
+    # plt.ylabel("Fitness")
+    # plt.xlabel("Geração")
+    # plt.show()
