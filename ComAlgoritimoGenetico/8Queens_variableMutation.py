@@ -51,7 +51,7 @@ def getFitness(instance): #Criando fitness
 def build_child(instance1, instance2, crossOver):
     newInstance = []
     for i in range(crossOver):
-        newInstance.append(instance1[random.randint(0, 7)])
+        newInstance.append(instance1[random.randint(0, 7)]) 
     for i in range(crossOver, 8):
         newInstance.append(instance2[random.randint(0, 7)])
     return newInstance
@@ -90,7 +90,7 @@ def changeChromosome(li, mutation_rate):
 
 if __name__ == "__main__":
     print("Select the number of queens: ")
-    numberOfSolutions = int(8)
+    numberOfSolutions = int(input())
     solutions = []
     max_fitness = []
     while len(solutions) < numberOfSolutions:
@@ -105,9 +105,10 @@ if __name__ == "__main__":
         max_fitness.append(fitnessMother)
 
         while fitnessFather != 28 and fitnessMother != 28:
+            crossover = 10
             changeChilds(crossover)
             changeChromosome(child1, 10) #bug
-            changeChromosome(child2, 0)
+            changeChromosome(child2, 10)
             fitnessFather = getFitness(child1)
             fitnessMother = getFitness(child2)
             father = child1
