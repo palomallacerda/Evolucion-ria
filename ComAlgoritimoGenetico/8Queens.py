@@ -17,9 +17,13 @@ def view(board):
 # Função para calcular o fitness
 def fitness(board):
     attacks = 0
-    for i in range(8):
-        for j in range(i+1, 8):
-            if board[i] == board[j] or abs(board[i] - board[j]) == abs(i - j):
+    for i in range(len(board) - 1):
+        for j in range(i + 1, len(board)):
+            if board[i] == board[j]:
+                attacks += 1
+    for i in range(len(board) - 1):
+        for j in range(i + 1, len(board)):
+            if abs(board[j] - board[i]) == abs(j - i):
                 attacks += 1
     return 28 - attacks
 
@@ -45,7 +49,7 @@ def mutate(board, mutation_rate):
 population_size = 100
 crossover_rate = 0.8
 mutation_rate = 0.1
-generations = 70
+generations = 1000
 
 # Inicialização da população
 population = []

@@ -1,5 +1,5 @@
 # Problema das 8 rainhas com a taxa de mutação e cruzamento fixos
-
+#Printa todas as possibilidades 
 import random
 import matplotlib.pyplot as plt
 
@@ -106,11 +106,10 @@ if __name__ == "__main__":
             changeChromosome(child1)
             changeChromosome(child2)
             fitnessFather = getFitness(child1)
-            fitnessMother = getFitness(child2)
+            fitnessMother = 8(child2)
             father = child1
             mother = child2
-            print(father)
-            print(mother)
+            # print(father)8
         if getFitness(father) == 28:
             if father not in solutions:
                 solutions.append(father)

@@ -14,14 +14,17 @@ def view(board):
 # Função para calcular o fitness
 def fitness(board):
     attacks = 0
-    for i in range(8):
-        for j in range(i+1, 8):
-            if board[i] == board[j] or abs(board[i] - board[j]) == abs(i - j):
+    for i in range(len(board)-1):
+        for j in range(i + 1, len(board)-1):
+            if board[i] == board[j]:
+                attacks += 1
+    for i in range(len(board)-1):
+        for j in range(i + 1, len(board)-1):
+            if abs(board[j] - board[i]) == abs(j - i):
                 attacks += 1
     return 28 - attacks
 
-# Função para realizar o cruzamento entre dois tabuleiros
-def crossover(board1, board2, crossover_rate):
+def crossover(board1, board2, crossover_rate): #Crossover variado
     if random.random() < crossover_rate:
         split_point = random.randint(1, 7)
         new_board1 = board1[:split_point] + board2[split_point:]
@@ -30,8 +33,7 @@ def crossover(board1, board2, crossover_rate):
     else:
         return board1, board2
 
-# Função para realizar a mutação em um tabuleiro
-def mutate(board, mutation_rate):
+def mutate(board, mutation_rate): #Mutação Variada
     boardCopy = board.copy()
     if random.random() < mutation_rate:
         index = random.randint(0, 7)
@@ -39,13 +41,12 @@ def mutate(board, mutation_rate):
         boardCopy[index] = new_value
     return boardCopy
 
-# Parâmetros do algoritmo genético
 population_size = 100
 crossover_rate_min = 0.6
 crossover_rate_max = 0.9
 mutation_rate_min = 0.05
 mutation_rate_max = 0.2
-generations = 70
+generations = 75
 
 # Inicialização da população
 population = []
@@ -60,7 +61,7 @@ for generation in range(generations):
     fitness_scores = [fitness(board) for board in population]
     max_fitness.append(max(fitness_scores))
     
-    # Seleção dos pais (torneio de dois)
+    # Seleção dos pais (Roleta)
     parents = []
     for i in range(population_size):
         p1 = random.randint(0, population_size-1)
@@ -89,7 +90,7 @@ for generation in range(generations):
 
 # Impressão da melhor sol
 # Impressão da melhor solução encontrada
-best_board = max(population, key=fitness)
+best_board = min(population, key=fitness)
 print('Melhor solução:')
 view(best_board)
 
