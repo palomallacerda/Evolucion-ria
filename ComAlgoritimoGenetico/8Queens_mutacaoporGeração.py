@@ -34,7 +34,7 @@ def crossover(board1, board2, crossover_rate): # Crossover variável
 def mutate(board, mutation_rate): # Mutação variável
     boardCopy = board.copy()
     for i in range(8): #fazendo a mutação para cada cromossomo
-        if random.random() < mutation_rate: 
+        if random.random() < mutation_rate:
             boardCopy[i] = random.randint(0, 7)
     return boardCopy
 
@@ -52,6 +52,7 @@ for i in range(population_size):
     population.append(board)
 
 # Execução do algoritmo genético
+elitism_size = 5
 max_fitness = []
 for generation in range(generations):
     # Avaliação do fitness da população
@@ -67,10 +68,10 @@ for generation in range(generations):
             parents.append(population[p1])
         else:
             parents.append(population[p2])
-    
+
     # Cruzamento e mutação para gerar nova população
     new_population = []
-    for i in range(int(population_size/2)):
+    for i in range(int((population_size)/2)):
         p1 = i * 2
         p2 = i * 2 + 1
         
@@ -86,13 +87,13 @@ for generation in range(generations):
     population = new_population
 
 # Impressão da melhor solução encontrada
-best_board = min(population, key=fitness)
+best_board = max(population, key=fitness)
 print('Melhor solução:')
 view(best_board)
 
 # Plot do gráfico de maior fitness por geração
 plt.plot(range(generations), max_fitness)
-plt.title("Maior fitness por geração com taxas variadas")
+plt.title("Maior fitness por geração com taxas variadas por geração")
 plt.ylabel("Fitness")
 plt.xlabel("Geração")
 plt.show()

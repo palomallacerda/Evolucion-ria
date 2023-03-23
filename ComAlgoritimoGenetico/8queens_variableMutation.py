@@ -90,7 +90,7 @@ for generation in range(generations):
 
 # Impressão da melhor sol
 # Impressão da melhor solução encontrada
-best_board = min(population, key=fitness)
+best_board = max(population, key=fitness)
 print('Melhor solução:')
 view(best_board)
 
